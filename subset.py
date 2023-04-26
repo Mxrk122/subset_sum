@@ -1,4 +1,8 @@
 def subset_sum_dc(arr, target):
+    """
+     O(c), c constante
+    """
+
     if len(arr) == 0:
         # Caso base: Si la lista está vacía, devuelve True si el target también es cero, y una lista vacía para el subconjunto vacío
         return target == 0, []
@@ -21,12 +25,19 @@ def subset_sum_dc(arr, target):
 def subset_sum_dp(arr, target):
     n = len(arr)
     # Se crea una tabla de verdad de tamaño (n+1) x (target+1), inicializada con valores False
+    """
+    O(n)
+    """
     dp = [[False for _ in range(target + 1)] for _ in range(n + 1)]
-    
+    """
+    Inicializacion O(n)
+    """
     for i in range(n + 1):
         # Todos los elementos en la primera columna de la tabla son True, ya que cualquier subconjunto puede sumar cero (target = 0)
         dp[i][0] = True
-    
+    """
+    Algoritmo principal: O(n*target) --> Depende del target y 
+    """
     for i in range(1, n + 1):
         for j in range(1, target + 1):
             if j < arr[i - 1]:
@@ -39,8 +50,11 @@ def subset_sum_dp(arr, target):
                 
     if not dp[n][target]:
         # Si la última celda en la tabla es False, significa que no se puede obtener el target con los elementos del arreglo
-        return False, []
-    
+        return False
+    """
+    Lo siguiente es O(n)
+
+    """
     # Se reconstruye el subconjunto que suma el target a partir de la tabla de verdad
     subset = []
     i, j = n, target
